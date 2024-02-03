@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import MainStackNavigation from './navigation/stackNavigation';
+import { PolygonContext, SchemaContext, GridContext, DataContext } from './state/context';
+import { SafeAreaView } from 'react-native';
 
 export default function App() {
+  const [polygonContext, setPolygonContext] = useState([]);
+  const [schemaContext, setSchemaContext] = useState([]);
+  const [gridContext, setGridContext] = useState([]);
+  const [dataContext, setDataContext] = useState([]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    // <NotifierWrapper>
+    <DataContext.Provider value={{ dataContext, setDataContext }}>
+      <GridContext.Provider value={{ gridContext, setGridContext }}>
+        <PolygonContext.Provider value={{ polygonContext, setPolygonContext }}>
+          <SchemaContext.Provider value={{ schemaContext, setSchemaContext }}>
+            <NavigationContainer>
+              <SafeAreaView style={{flex:1}}>
+              <MainStackNavigation />
+              </SafeAreaView>
+            </NavigationContainer>
+          </SchemaContext.Provider>
+        </PolygonContext.Provider>
+      </GridContext.Provider>
+    </DataContext.Provider>
+    // </NotifierWrapper>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
