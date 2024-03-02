@@ -16,7 +16,8 @@
     ],
     "ios": {
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Your description here"
+        "NSLocationWhenInUseUsageDescription": "Es una app de recolección de datos geograficos, necesito la ubicación para georeferenciar el punto de muestreo",
+        "NSLocationAlwaysUsageDescription": "Es una herramienta de recolección de datos en tiempo real"
       },
       "supportsTablet": true,
       "bundleIdentifier": "com.jedwin94.GeoCollector"
@@ -30,7 +31,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jedwin94.GeoCollector"
+      "package": "com.jedwin94.GeoCollector",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAC8BdTWVqjvfIvXfJICEwc2On0vLGiMB8"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -39,6 +45,12 @@
       "eas": {
         "projectId": "e84c0c02-530b-479f-97a0-e0175cd2cb55"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e84c0c02-530b-479f-97a0-e0175cd2cb55"
     }
   }
 }

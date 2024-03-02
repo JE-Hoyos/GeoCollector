@@ -7,8 +7,9 @@ import { Entypo } from '@expo/vector-icons';
 import HeaderScreen from '../../components/header/header';
 import { SchemaContext } from '../../state/context';
 import { List } from 'react-native-paper';
+import schemaSoildTester from '../../mocks/soil-tester';
 
-const FormParameter = ({navigation}) => {
+const FormParameter = ({ navigation }) => {
     const { schemaContext, setSchemaContext } = useContext(SchemaContext);
     const [visible, setVisible] = useState(false);
     const [expanded, setExpanded] = useState(false);
@@ -25,31 +26,31 @@ const FormParameter = ({navigation}) => {
 
     useFocusEffect(
         useCallback(() => {
-          console.log(schemaContext, 'Esquema sampling');
-         
+            console.log(schemaContext, 'Esquema sampling');
+
         })
-      );
+    );
 
-      useEffect(() => {
-        if(schemaContext && schemaContext.metersGrid){
+    useEffect(() => {
+        if (schemaContext && schemaContext.metersGrid) {
             setMetersGrid(schemaContext.metersGrid)
-          }
-      }, []);
-
-      useEffect(() => {
-        if(schemaContext && schemaContext.nameScheme){
-            setNameScheme(schemaContext.nameScheme)
-          }
-      }, []);
-
-   useFocusEffect(
-    useCallback(() => {
-        if(schemaContext && schemaContext.variables){
-            setVarConfig(schemaContext.variables);
         }
+    }, []);
 
-    })
-  );
+    useEffect(() => {
+        if (schemaContext && schemaContext.nameScheme) {
+            setNameScheme(schemaContext.nameScheme)
+        }
+    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            if (schemaContext && schemaContext.variables) {
+                setVarConfig(schemaContext.variables);
+            }
+
+        })
+    );
 
     const handleNewVar = () => {
         if (name && units && typeVar) {
@@ -66,7 +67,7 @@ const FormParameter = ({navigation}) => {
     const handleTypeVarChange = (value) => {
         setTypeVar(value);
     };
-    const handleExpanded = () =>{
+    const handleExpanded = () => {
         setExpanded(!expanded)
     };
     const handleCategoric = () => {
@@ -272,22 +273,35 @@ const FormParameter = ({navigation}) => {
 
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView S>
             <View style={styles.container}>
                 <HeaderScreen textTittle={'Parámetros'} />
+                {/* Predefinidos */}
+                <View>
+                    <Text style={styles.texttitle}>Predefinidos</Text>
+                    <View>
+                        <TouchableHighlight style={styles.button} 
+                        onPress={()=>{
+                            setSchemaContext(schemaSoildTester)
+                        }}>
+                            <Text>Soil tester</Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+                
                 <View style={[styles.cardButtom, { margin: '4%' }]}>
                     <Text style={styles.texttitle}>Esquema de muestreo</Text>
 
                     <Text style={styles.text1}>Nombre del esquema</Text>
                     <TextInput
-                    value={nameScheme?nameScheme: undefined}
+                        value={nameScheme ? nameScheme : undefined}
                         onChangeText={(value) => setNameScheme(value)}
                         style={[styles.textInput, { textAlign: 'center', fontWeight: 'bold' }]}
                     />
 
                     <Text style={styles.text1}>Distancia en metros</Text>
                     <TextInput
-                    value={metersGrid?metersGrid: undefined}
+                        value={metersGrid ? metersGrid : undefined}
                         onChangeText={(value) => setMetersGrid(value)}
                         style={[styles.textInput, { textAlign: 'center', fontWeight: 'bold' }]}
                         keyboardType='numeric'
@@ -319,7 +333,7 @@ const FormParameter = ({navigation}) => {
                         setSchemaContext({ nameScheme, metersGrid, variables: varConfigs });
                         navigation.navigate('Main');
                     }}>
-                    <Text style={{color:'white', fontWeight:'bold', fontSize:20}}>Guardar</Text>
+                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Guardar</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
